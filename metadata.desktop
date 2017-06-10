@@ -1,6 +1,6 @@
 [SddmGreeterTheme]
-Name=Deepin
-Description=Deepin-like SDDM theme.
+Name=Sddm_wynn
+Description=A theme for m_wynn
 Screenshot=screenshot.png
 License=CC-BY-SA
 Type=sddm-theme
@@ -9,5 +9,5 @@ Screenshot=screenshot.png
 MainScript=Main.qml
 ConfigFile=theme.conf
 TranslationsDirectory=translations
-Theme-Id=deepin
+Theme-Id=m_wynn
 Theme-API=2.0

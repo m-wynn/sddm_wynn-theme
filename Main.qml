@@ -79,7 +79,7 @@ Rectangle {
         }
     }
 
-    Page {
+    Item {
         id: mainFrame
         property variant geometry: screenModel.geometry(screenModel.primary)
         x: geometry.x; y: geometry.y; width: geometry.width; height: geometry.height
@@ -100,7 +100,7 @@ Rectangle {
         Item {
             id: centerArea
             width: parent.width
-            height: parent.height * 3 /  5
+            height: parent.height * 3 /  5 - 30
             anchors.top: parent.top
             anchors.topMargin: parent.height / 5
 
@@ -158,7 +158,7 @@ Rectangle {
             }
         }
 
-        header: ToolBar {
+        ToolBar {
             id: topArea
             visible: ! loginFrame.isProcessing
             anchors {
