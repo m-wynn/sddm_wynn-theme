@@ -1,8 +1,7 @@
-import QtQuick 2.0
+import QtQuick 2.7
 import QtGraphicalEffects 1.0
 import SddmComponents 2.0
 import QtQuick.Controls 2.0
-import QtQuick.Controls.Material 2.0
 
 Item {
     id: frame
@@ -108,7 +107,6 @@ Item {
                 topMargin: 30
                 horizontalCenter: parent.horizontalCenter
             }
-
             text: userName
             color: "#000000"
             font.pointSize: 15
@@ -123,18 +121,93 @@ Item {
             }
             width: parent.width
             clip: true
-            focus: true
-            color: textColor
+            color: config.accent2
             font.pointSize: 15
             selectByMouse: true
             selectionColor: "#a8d6ec"
+            placeholderText: qsTr("Password")
             echoMode: TextInput.Password
             verticalAlignment: TextInput.AlignVCenter
+            leftPadding: 2
+            bottomPadding: 15
+            cursorDelegate: Item {
+                id: root
+
+                property Item input: parent
+
+                width: 3
+                height: input.cursorRectangle.height
+                visible: input.activeFocus && input.selectionStart === input.selectionEnd
+
+
+                Rectangle {
+                    width: 2
+                    height: parent.height + 3
+                    radius: width
+                    color: config.accent2
+                }
+
+                Rectangle {
+                    id: handle
+                    x: -width/2 + parent.width/2
+                    width: 2
+                    height: width
+                    radius: width
+                    color: config.accent2
+                    anchors.top: parent.bottom
+                }
+                MouseArea {
+                    drag {
+                        target: root
+                        minimumX: 0
+                        minimumY: 0
+                        maximumX: input.width
+                        maximumY: input.height - root.height
+                    }
+                    width: handle.width * 2
+                    height: parent.height + handle.height
+                    x: -width/2
+                    onReleased: {
+                        var pos = mapToItem(input, mouse.x, mouse.y);
+                        input.cursorPosition = input.positionAt(pos.x, pos.y);
+                    }
+                }
+            }
+            background: Item {
+                implicitHeight: 40
+                Rectangle {
+                    id: passback
+                    anchors.fill: parent
+                    anchors.bottomMargin: 5
+                    opacity: 0
+                }
+
+                Rectangle {
+                    id: passborder
+                    anchors.bottom: passback.bottom
+                    width: parent.width
+                    height: 1
+                    color: "#000000"
+                }
+                Rectangle {
+                    id: passborderactive
+                    anchors.bottom: passback.bottom
+                    width: 0
+                    height: 2
+                    color: config.accent2
+                }
+            }
             onFocusChanged: {
                 if (focus) {
-                    color = textColor
+                    color = config.accent2
                     echoMode = TextInput.Password
-                    text = ""
+                    passborderactive.width = passborder.width
+                    cursorVisible = true
+                } else {
+                    color = "#888888"
+                    passborder.color = "#000000"
+                    passborderactive.width = 0
+                    cursorVisible = false
                 }
             }
 
@@ -166,7 +239,10 @@ Item {
             width: parent.width
             text: qsTr("LOG IN")
             highlighted: true
-            Material.elevation: 6
+            background: Rectangle {
+                color: config.accent2
+                implicitHeight: 40
+            }
 
             anchors {
                 top: passwdInput.bottom
@@ -178,6 +254,15 @@ Item {
 
             KeyNavigation.tab: shutdownButton
             KeyNavigation.backtab: passwdInput
+        }
+        DropShadow {
+            anchors.fill: loginButton
+            horizontalOffset: 0
+            verticalOffset: 1
+            radius: 8.0
+            samples: 17
+            color: "#80000000"
+            source: loginButton
         }
     }
 }

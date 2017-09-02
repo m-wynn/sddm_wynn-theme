@@ -4,7 +4,6 @@ import QtQuick 2.2
 import QtQuick.Controls 2.1
 import QtGraphicalEffects 1.0
 import SddmComponents 2.0
-import QtQuick.Controls.Material 2.1
 
 
 Rectangle {
@@ -12,12 +11,6 @@ Rectangle {
     width: 640
     height: 480
     state: "stateLogin"
-
-    Material.theme: Material.Light
-    Material.accent: "#00796b"
-    Material.primary: "#4dd0e1"
-    Material.foreground: Material.White
-    Material.background: "#00796b"
 
     readonly property int hMargin: 24
     readonly property int vMargin: 30
@@ -100,9 +93,10 @@ Rectangle {
         Item {
             id: centerArea
             width: parent.width
-            height: parent.height * 3 /  5 - 30
-            anchors.top: parent.top
-            anchors.topMargin: parent.height / 5
+            height: 430
+            anchors {
+                centerIn: parent
+            }
 
             PowerFrame {
                 id: powerFrame
@@ -158,7 +152,7 @@ Rectangle {
             }
         }
 
-        ToolBar {
+        Rectangle {
             id: topArea
             visible: ! loginFrame.isProcessing
             anchors {
@@ -167,6 +161,7 @@ Rectangle {
             }
             width: parent.width
             height: 64
+            color: config.accent1
 
             Label {
                 id: hostnameText
@@ -177,7 +172,6 @@ Rectangle {
                 }
 
                 font.pointSize: 16
-                color: Material.Color(Material.White)
 
                 text: sddm.hostName ? sddm.hostName : "hostname"
             }
@@ -199,7 +193,6 @@ Rectangle {
                     }
 
                     font.pointSize: 16
-                    color: Material.Color(Material.White)
 
                     function updateTime() {
                         text = new Date().toLocaleString(Qt.locale("en_US"), "hh:mm:ss")
@@ -313,6 +306,15 @@ Rectangle {
                     }
                 }
             }
+        }
+        DropShadow {
+            anchors.fill: topArea
+            horizontalOffset: 0
+            verticalOffset: 3
+            radius: 8.0
+            samples: 17
+            color: "#80000000"
+            source: topArea
         }
 
         MouseArea {
