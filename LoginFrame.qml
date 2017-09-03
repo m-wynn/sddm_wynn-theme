@@ -74,11 +74,13 @@ Item {
                 name: "fill"
                 PropertyChanges { target: userNameText; opacity: 0}
                 PropertyChanges { target: userNameInput; opacity: 1}
+                PropertyChanges { target: userIconRec; source: config.logo }
             },
             State {
                 name: "select"
                 PropertyChanges { target: userNameText; opacity: 1}
                 PropertyChanges { target: userNameInput; opacity: 0}
+                PropertyChanges { target: userIconRec; source: userFrame.currentIconPath }
             }
         ]
 
@@ -93,8 +95,10 @@ Item {
             height: 130
             source: userFrame.currentIconPath
             onClicked: {
-                root.state = "stateUser"
-                userFrame.focus = true
+                if (config.userName == "select") {
+                    root.state = "stateUser"
+                    userFrame.focus = true
+                }
             }
         }
         Glow {
