@@ -18,10 +18,7 @@ Item {
             Qt.quit()
         }
         onLoginFailed: {
-            passwdInput.echoMode = TextInput.Normal
-            passwdInput.text = textConstants.loginFailed
-            passwdInput.focus = false
-            passwdInput.color = "#e7b222"
+            loginButton.text = textConstants.loginFailed
             glowAnimation.running = false
         }
     }
@@ -141,6 +138,7 @@ Item {
             text: userName
             color: "#000000"
             font.pointSize: 15
+            KeyNavigation.tab: passwdInput
         }
 
         MaterialTextbox{
@@ -182,6 +180,7 @@ Item {
             text: qsTr("LOG IN")
             highlighted: true
             background: Rectangle {
+                id: loginButtonBack
                 color: config.accent2
                 implicitHeight: 40
             }
@@ -193,8 +192,12 @@ Item {
                 leftMargin: 8
                 rightMargin: 8 + 36
             }
+            onClicked: {
+                glowAnimation.running = true
+                sddm.login(userNameText.text, passwdInput.text, sessionIndex)
+            }
 
-            KeyNavigation.tab: shutdownButton
+            KeyNavigation.tab: userNameInput
             KeyNavigation.backtab: passwdInput
         }
         DropShadow {
