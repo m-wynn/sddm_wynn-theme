@@ -66,6 +66,22 @@ Item {
         width: parent.width / 3 - 100
         height: parent.height
 
+
+        state: config.userName
+
+        states: [
+            State {
+                name: "fill"
+                PropertyChanges { target: userNameText; opacity: 0}
+                PropertyChanges { target: userNameInput; opacity: 1}
+            },
+            State {
+                name: "select"
+                PropertyChanges { target: userNameText; opacity: 1}
+                PropertyChanges { target: userNameInput; opacity: 0}
+            }
+        ]
+
         UserAvatar {
             id: userIconRec
             anchors {
@@ -99,12 +115,23 @@ Item {
             }
         }
 
+        MaterialTextbox {
+            id: userNameInput
+            anchors {
+                top: userIconRec.bottom
+                topMargin: 30
+                horizontalCenter: parent.horizontalCenter
+            }
+            width: parent.width
+            placeholderText: qsTr("Username")
+        }
+
 
         Text {
             id: userNameText
             anchors {
-                top: userIconRec.bottom
-                topMargin: 30
+                top: userNameInput.top
+                bottom: userNameInput.bottom
                 horizontalCenter: parent.horizontalCenter
             }
             text: userName
@@ -112,108 +139,23 @@ Item {
             font.pointSize: 15
         }
 
-        TextField {
+        MaterialTextbox{
             id: passwdInput
             anchors {
-                top: userNameText.bottom
+                top: userNameInput.bottom
                 topMargin: 10
                 horizontalCenter: parent.horizontalCenter
             }
             width: parent.width
-            clip: true
-            color: config.accent2
-            font.pointSize: 15
-            selectByMouse: true
-            selectionColor: "#a8d6ec"
             placeholderText: qsTr("Password")
             echoMode: TextInput.Password
-            verticalAlignment: TextInput.AlignVCenter
-            leftPadding: 2
-            bottomPadding: 15
-            cursorDelegate: Item {
-                id: root
-
-                property Item input: parent
-
-                width: 3
-                height: input.cursorRectangle.height
-                visible: input.activeFocus && input.selectionStart === input.selectionEnd
-
-
-                Rectangle {
-                    width: 2
-                    height: parent.height + 3
-                    radius: width
-                    color: config.accent2
-                }
-
-                Rectangle {
-                    id: handle
-                    x: -width/2 + parent.width/2
-                    width: 2
-                    height: width
-                    radius: width
-                    color: config.accent2
-                    anchors.top: parent.bottom
-                }
-                MouseArea {
-                    drag {
-                        target: root
-                        minimumX: 0
-                        minimumY: 0
-                        maximumX: input.width
-                        maximumY: input.height - root.height
-                    }
-                    width: handle.width * 2
-                    height: parent.height + handle.height
-                    x: -width/2
-                    onReleased: {
-                        var pos = mapToItem(input, mouse.x, mouse.y);
-                        input.cursorPosition = input.positionAt(pos.x, pos.y);
-                    }
-                }
-            }
-            background: Item {
-                implicitHeight: 40
-                Rectangle {
-                    id: passback
-                    anchors.fill: parent
-                    anchors.bottomMargin: 5
-                    opacity: 0
-                }
-
-                Rectangle {
-                    id: passborder
-                    anchors.bottom: passback.bottom
-                    width: parent.width
-                    height: 1
-                    color: "#000000"
-                }
-                Rectangle {
-                    id: passborderactive
-                    anchors.bottom: passback.bottom
-                    width: 0
-                    height: 2
-                    color: config.accent2
-                }
-            }
-            onFocusChanged: {
-                if (focus) {
-                    color = config.accent2
-                    echoMode = TextInput.Password
-                    passborderactive.width = passborder.width
-                    cursorVisible = true
-                } else {
-                    color = "#888888"
-                    passborder.color = "#000000"
-                    passborderactive.width = 0
-                    cursorVisible = false
-                }
-            }
-
             onAccepted: {
                 glowAnimation.running = true
-                sddm.login(userNameText.text, passwdInput.text, sessionIndex)
+                userName = userNameText.text
+                if (config.userName == "fill") {
+                    userName = userNameInput.text
+                }
+                sddm.login(userName, passwdInput.text, sessionIndex)
             }
             KeyNavigation.backtab: {
                 if (sessionButton.visible) {
@@ -227,12 +169,8 @@ Item {
                 }
             }
             KeyNavigation.tab: loginButton
-            Timer {
-                interval: 200
-                running: true
-                onTriggered: passwdInput.forceActiveFocus()
-            }
         }
+
 
         Button {
             id: loginButton

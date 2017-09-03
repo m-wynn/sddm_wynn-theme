@@ -229,6 +229,20 @@ Rectangle {
                     anchors.rightMargin: hMargin
                     anchors.verticalCenter: parent.verticalCenter
 
+                    state: config.userName
+
+                    states: [
+                        State {
+                            name: "fill"
+                            PropertyChanges { target: userButton; width: 0}
+                        },
+                        State {
+                            name: "select"
+                            PropertyChanges { target: userButton; opacity: 1}
+                        }
+                    ]
+
+
                     ImgButton {
                         id: sessionButton
                         width: m_powerButtonSize
