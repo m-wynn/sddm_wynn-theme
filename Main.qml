@@ -154,7 +154,6 @@ Rectangle {
 
         Rectangle {
             id: topArea
-            visible: ! loginFrame.isProcessing
             anchors {
                 top: parent.top
                 left: parent.left
@@ -178,7 +177,6 @@ Rectangle {
 
             Item {
                 id: timeArea
-                visible: ! loginFrame.isProcessing
                 anchors {
                     top: parent.top
                     horizontalCenter: parent.horizontalCenter
@@ -215,7 +213,6 @@ Rectangle {
 
             Item {
                 id: powerArea
-                visible: ! loginFrame.isProcessing
                 anchors {
                     bottom: parent.bottom
                     right: parent.right
@@ -324,7 +321,7 @@ Rectangle {
         DropShadow {
             anchors.fill: topArea
             horizontalOffset: 0
-            verticalOffset: 3
+            verticalOffset: 0
             radius: 8.0
             samples: 17
             color: "#80000000"
