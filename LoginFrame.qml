@@ -5,10 +5,21 @@ import QtQuick.Controls 2.0
 
 Item {
     id: frame
-    property int sessionIndex: sessionModel.lastIndex
+    property int sessionIndex: find_list(sessionModel, config.defaultSession)
     property string userName: userModel.lastUser
-    property alias input: passwdInput
+    property alias input: userNameInput
     property alias button: loginButton
+    function find_list(haystack, needle) {
+        var i;
+        for (i = 0; i < sessionModel.rowCount(); i++) {
+            var file = sessionModel.data(sessionModel.index(i,0), 258)
+            var name = file.substring(file.lastIndexOf('/')+1, file.lastIndexOf('.'))
+            if(name.toLowerCase() == needle.toLowerCase()) {
+                return i
+            }
+        }
+        return 0
+    }
 
     Connections {
         target: sddm
@@ -146,16 +157,6 @@ Item {
             }
         }
 
-        // SequentialAnimation on radius {
-        //     id: spinner
-        //     running: false
-        //     alwaysRunToEnd: true
-        //     loops: Animation.Infinite
-        //     PropertyAnimation { to: 20 ; duration: 1000}
-        //     PropertyAnimation { to: 0 ; duration: 1000}
-        // }
-
-
         MaterialTextbox {
             id: userNameInput
             anchors {
@@ -165,20 +166,7 @@ Item {
             }
             width: parent.width
             placeholderText: qsTr("Username")
-        }
 
-
-        Text {
-            id: userNameText
-            anchors {
-                top: userNameInput.top
-                bottom: userNameInput.bottom
-                horizontalCenter: parent.horizontalCenter
-            }
-            focus: true
-            text: userName
-            color: "#000000"
-            font.pointSize: 15
             KeyNavigation.backtab: {
                 if (sessionButton.visible) {
                     return sessionButton
@@ -191,6 +179,19 @@ Item {
                 }
             }
             KeyNavigation.tab: passwdInput
+        }
+
+
+        Text {
+            id: userNameText
+            anchors {
+                top: userNameInput.top
+                bottom: userNameInput.bottom
+                horizontalCenter: parent.horizontalCenter
+            }
+            text: userName
+            color: "#000000"
+            font.pointSize: 15
         }
 
         MaterialTextbox{
@@ -250,6 +251,7 @@ Item {
             }
             onClicked: {
                 spinner.running = true
+                console.log(sessionIndex)
                 sddm.login(userNameText.text, passwdInput.text, sessionIndex)
             }
 

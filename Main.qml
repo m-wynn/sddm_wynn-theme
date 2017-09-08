@@ -62,7 +62,7 @@ Rectangle {
         model: screenModel
         Background {
             x: geometry.x; y: geometry.y; width: geometry.width; height:geometry.height
-            source: config.background
+            source: config.defaultBackground
             fillMode: Image.Tile
             onStatusChanged: {
                 if (status == Image.Error && source !== config.defaultBackground) {
