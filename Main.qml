@@ -62,11 +62,11 @@ Rectangle {
         model: screenModel
         Background {
             x: geometry.x; y: geometry.y; width: geometry.width; height:geometry.height
-            source: config.defaultBackground
+            source: config.default_background
             fillMode: Image.Tile
             onStatusChanged: {
-                if (status == Image.Error && source !== config.defaultBackground) {
-                    source = config.defaultBackground
+                if (status == Image.Error && source !== config.default_background) {
+                    source = config.default_background
                 }
             }
         }
@@ -226,7 +226,7 @@ Rectangle {
                     anchors.rightMargin: hMargin
                     anchors.verticalCenter: parent.verticalCenter
 
-                    state: config.userName
+                    state: config.user_name
 
                     states: [
                         State {

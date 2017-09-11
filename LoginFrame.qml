@@ -5,7 +5,7 @@ import QtQuick.Controls 2.0
 
 Item {
     id: frame
-    property int sessionIndex: find_list(sessionModel, config.defaultSession)
+    property int sessionIndex: find_list(sessionModel, config.default_session)
     property string userName: userModel.lastUser
     property alias input: userNameInput
     property alias button: loginButton
@@ -88,7 +88,7 @@ Item {
         height: parent.height
 
 
-        state: config.userName
+        state: config.user_name
 
         states: [
             State {
@@ -150,7 +150,7 @@ Item {
             height: 130
             source: userFrame.currentIconPath
             onClicked: {
-                if (config.userName == "select") {
+                if (config.user_name == "select") {
                     root.state = "stateUser"
                     userFrame.focus = true
                 }
@@ -188,7 +188,7 @@ Item {
                         if (xhr.readyState == 4 && xhr.status == 200) {
                             var session = xhr.responseText
                             if (session == 'N'){
-                                sessionIndex = find_list(sessionModel, config.defaultSession)
+                                sessionIndex = find_list(sessionModel, config.default_session)
                             } else if (session != null) {
                                 sessionIndex = find_list(sessionModel, session)
                             }
@@ -226,7 +226,7 @@ Item {
             onAccepted: {
                 spinner.running = true
                 userName = userNameText.text
-                if (config.userName == "fill") {
+                if (config.user_name == "fill") {
                     userName = userNameInput.text
                 }
                 sddm.login(userName, passwdInput.text, sessionIndex)
