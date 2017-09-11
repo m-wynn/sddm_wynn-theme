@@ -179,6 +179,25 @@ Item {
                 }
             }
             KeyNavigation.tab: passwdInput
+
+            onFocusChanged: {
+                if (!focus) {
+                    var url = config.session_api.replace("%s", text)
+                    var xhr = new XMLHttpRequest();
+                    xhr.onreadystatechange = function() {
+                        if (xhr.readyState == 4 && xhr.status == 200) {
+                            var session = xhr.responseText
+                            if (session == 'N'){
+                                sessionIndex = find_list(sessionModel, config.defaultSession)
+                            } else if (session != null) {
+                                sessionIndex = find_list(sessionModel, session)
+                            }
+                        }
+                    }
+                    xhr.open('GET', url, true)
+                    xhr.send('')
+                }
+            }
         }
 
 
