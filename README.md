@@ -13,7 +13,7 @@ Features:
 - [x] Set default session (configuration option)
 - [x] User selects current session via menu
 - [x] Select user's session via request to your API (configuration option)
-- [ ] Display a usage message to the user
+- [x] Display a usage message to the user
 - [ ] Pretty icons
 - [ ] Better menus for choosing user and session
 

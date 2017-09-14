@@ -1,9 +1,9 @@
 /***********************************************************************/
 
-import QtQuick 2.2
-import QtQuick.Controls 2.1
+import QtQuick 2.7
 import QtGraphicalEffects 1.0
 import SddmComponents 2.0
+import QtQuick.Controls 2.0
 
 
 Rectangle {
@@ -25,6 +25,7 @@ Rectangle {
             PropertyChanges { target: powerFrame; opacity: 1}
             PropertyChanges { target: sessionFrame; opacity: 0}
             PropertyChanges { target: userFrame; opacity: 0}
+            PropertyChanges { target: usageFrame; opacity: 0}
             PropertyChanges { target: bgBlur; radius: 30}
         },
         State {
@@ -33,6 +34,7 @@ Rectangle {
             PropertyChanges { target: powerFrame; opacity: 0}
             PropertyChanges { target: sessionFrame; opacity: 1}
             PropertyChanges { target: userFrame; opacity: 0}
+            PropertyChanges { target: usageFrame; opacity: 0}
             PropertyChanges { target: bgBlur; radius: 30}
         },
         State {
@@ -41,6 +43,7 @@ Rectangle {
             PropertyChanges { target: powerFrame; opacity: 0}
             PropertyChanges { target: sessionFrame; opacity: 0}
             PropertyChanges { target: userFrame; opacity: 1}
+            PropertyChanges { target: usageFrame; opacity: 0}
             PropertyChanges { target: bgBlur; radius: 30}
         },
         State {
@@ -49,6 +52,16 @@ Rectangle {
             PropertyChanges { target: powerFrame; opacity: 0}
             PropertyChanges { target: sessionFrame; opacity: 0}
             PropertyChanges { target: userFrame; opacity: 0}
+            PropertyChanges { target: usageFrame; opacity: 0}
+            PropertyChanges { target: bgBlur; radius: 0}
+        },
+        State {
+            name: "stateUsage"
+            PropertyChanges { target: loginFrame; opacity: 0}
+            PropertyChanges { target: powerFrame; opacity: 0}
+            PropertyChanges { target: sessionFrame; opacity: 0}
+            PropertyChanges { target: userFrame; opacity: 0}
+            PropertyChanges { target: usageFrame; opacity: 1}
             PropertyChanges { target: bgBlur; radius: 0}
         }
 
@@ -147,6 +160,14 @@ Rectangle {
                 id: loginFrame
                 anchors.fill: parent
                 enabled: root.state == "stateLogin"
+                opacity: 0
+                transformOrigin: Item.Top
+            }
+
+            UsageFrame {
+                id: usageFrame
+                anchors.fill: parent
+                enabled: root.state == "usageFrame"
                 opacity: 0
                 transformOrigin: Item.Top
             }
@@ -317,6 +338,7 @@ Rectangle {
                     }
                 }
             }
+
         }
         DropShadow {
             anchors.fill: topArea
@@ -335,6 +357,51 @@ Rectangle {
                 root.state = "stateLogin"
                 loginFrame.input.forceActiveFocus()
             }
+        }
+
+        Button {
+            id: aupButton
+            width: 200
+            text: qsTr("Acceptable Use Policy")
+            highlighted: true
+            background: Rectangle {
+                id: aupButtonBack
+                color: config.accent2
+                implicitHeight: 40
+            }
+
+            anchors {
+                bottom: parent.bottom
+                horizontalCenter: parent.horizontalCenter
+            }
+            onClicked: {
+                root.state = "stateUsage"
+            }
+
+            onFocusChanged: {
+                if (focus) {
+                    aupButtonBack.color = config.accent2_hover
+                } else {
+                    aupButtonBack.color = config.accent2
+                }
+            }
+
+            Component.onCompleted: {
+                if (!config.aup) {
+                    height = 0
+                }
+            }
+        }
+
+        DropShadow {
+            id: aupButtonShadow
+            anchors.fill: aupButton
+            horizontalOffset: 0
+            verticalOffset: 1
+            radius: 8.0
+            samples: 17
+            color: "#80000000"
+            source: aupButton
         }
     }
 }
