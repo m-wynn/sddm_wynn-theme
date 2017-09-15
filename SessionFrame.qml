@@ -1,38 +1,17 @@
 import QtQuick 2.7
 import QtGraphicalEffects 1.0
+import QtQuick.Controls 2.1
 
 Item {
     id: frame
     signal selected(var index)
     signal needClose()
 
-    readonly property int m_viewMaxWidth: frame.width - prevSession.width - nextSession.width - 230;
-    property bool shouldShowBG: false
-    property var sessionTypeList: ["deepin", "enlightenment", "fluxbox", "gnome", "kde", "lxde", "ubuntu"]
+    property bool shouldShowBG: true
     property alias currentItem: sessionList.currentItem
-
-    function getIconName(sessionName) {
-        for (var item in sessionTypeList) {
-            var str = sessionTypeList[item]
-            var index = sessionName.toLowerCase().indexOf(str)
-            if (index >= 0) {
-                return str
-            }
-        }
-
-        return "unknow"
-    }
-
-    function getCurrentSessionIconIndicator() {
-        return sessionList.currentItem.iconIndicator;
-    }
 
     function isMultipleSessions() {
         return sessionList.count > 1
-    }
-
-    onOpacityChanged: {
-        shouldShowBG = false
     }
 
     onFocusChanged: {
@@ -42,68 +21,87 @@ Item {
         }
     }
 
-    ImgButton {
-        id: prevSession
-        visible: sessionList.childrenRect.width > m_viewMaxWidth
-        anchors.left: parent.left
-        anchors.verticalCenter: parent.verticalCenter
-        anchors.margins: 10
-        normalImg: "icons/angle-left.png"
-        onClicked: {
-            sessionList.decrementCurrentIndex()
-            shouldShowBG = true
+    Item {
+        anchors.fill: parent
+        Item {
+            id: layered
+            opacity: 0.8
+            layer.enabled: true
+            anchors {
+                centerIn: parent
+                fill: parent
+            }
+
+            Rectangle {
+                id: rec1
+                width: parent.width / 3
+                height: parent.height - 35
+                anchors.centerIn: parent
+                color: "#f0f0f0"
+                radius: 2
+            }
+
+            DropShadow {
+                id: drop
+                anchors.fill: rec1
+                source: rec1
+                horizontalOffset: 0
+                verticalOffset: 3
+                radius: 10
+                samples: 21
+                color: "#55000000"
+                transparentBorder: true
+            }
         }
     }
 
+    Text {
+        id: aupTitle
+        anchors {
+            top: parent.top
+            topMargin: 50
+            horizontalCenter: parent.horizontalCenter
+        }
+        text: "Session"
+        color: "#000000"
+        font {
+            pointSize: 18
+            bold: true
+        }
+        wrapMode: Text.Wrap
+    }
     ListView {
         id: sessionList
         anchors.centerIn: parent
-        width:  childrenRect.width > m_viewMaxWidth ? m_viewMaxWidth : childrenRect.width
-        height: 150
+        width: parent.width / 3
         clip: true
+        height: parent.height - 80
+        topMargin: 75
         model: sessionModel
         currentIndex: sessionModel.lastIndex
-        orientation: ListView.Horizontal
-        spacing: 10
-        delegate: Rectangle {
-            property string iconIndicator: iconButton.indicator
+        orientation: ListView.Vertical
+        spacing: 5
+        delegate: Button {
             property bool activeBG: sessionList.currentIndex === index && shouldShowBG
 
-            border.width: 3
-            border.color: activeBG || focus ? "#33ffffff" : "transparent"
-            radius: 8
-            color: activeBG || focus ? "#55000000" : "transparent"
-
-            width: 230
-            height: 150
-
-            ImgButton {
-                id: iconButton
-                anchors.top: parent.top
-                anchors.horizontalCenter: parent.horizontalCenter
-                width: 100
-                height: 100
-                normalImg: ("%1normal.png").arg(prefix)
-                hoverImg: ("%1hover.png").arg(prefix)
-                pressImg: ("%1press.png").arg(prefix)
-
-                property var prefix: ("icons/sessionicon/%1_").arg(getIconName(name));
-                property var indicator: ("icons/%1_indicator_normal.png").arg(getIconName(name));
-
-                onClicked: {
-                    selected(index)
-                    sessionList.currentIndex = index
-                }
+            background: Rectangle {
+                color: activeBG || focus ? "#55000000" : "transparent"
+                border.width: 3
+                border.color: activeBG || focus ? "#33ffffff" : "transparent"
             }
+
+            width: parent.width
+            height: 35
 
             Text {
                 width: parent.width
-                anchors.bottom: parent.bottom
+                anchors.verticalCenter: parent.verticalCenter
                 anchors.horizontalCenter: parent.horizontalCenter
                 horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
                 text: name
                 font.pointSize: 15
-                color: "white"
+                color: "black"
                 wrapMode: Text.WordWrap
             }
 
@@ -124,19 +122,16 @@ Item {
                 selected(index)
                 sessionList.currentIndex = index
             }
+            onClicked: {
+                selected(index)
+                sessionList.currentIndex = index
+            }
         }
-    }
-
-    ImgButton {
-        id: nextSession
-        visible: sessionList.childrenRect.width > m_viewMaxWidth
-        anchors.right: parent.right
-        anchors.verticalCenter: parent.verticalCenter
-        anchors.margins: 10
-        normalImg: "icons/angle-right.png"
-        onClicked: {
-            sessionList.incrementCurrentIndex()
-            shouldShowBG = true
+        ScrollBar.vertical: ScrollBar {
+            parent: sessionList.parent
+            anchors.top: sessionList.top
+            anchors.left: sessionList.right
+            anchors.bottom: sessionList.bottom
         }
     }
 

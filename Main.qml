@@ -14,7 +14,7 @@ Rectangle {
 
     readonly property int hMargin: 24
     readonly property int vMargin: 30
-    readonly property int m_powerButtonSize: 40
+    readonly property int buttonSize: 40
 
     TextConstants { id: textConstants }
 
@@ -62,7 +62,7 @@ Rectangle {
             PropertyChanges { target: sessionFrame; opacity: 0}
             PropertyChanges { target: userFrame; opacity: 0}
             PropertyChanges { target: usageFrame; opacity: 1}
-            PropertyChanges { target: bgBlur; radius: 0}
+            PropertyChanges { target: bgBlur; radius: 30}
         }
 
     ]
@@ -263,10 +263,11 @@ Rectangle {
 
                     ImgButton {
                         id: sessionButton
-                        width: m_powerButtonSize
-                        height: m_powerButtonSize
+                        width: buttonSize
+                        height: buttonSize
                         visible: sessionFrame.isMultipleSessions()
-                        normalImg: sessionFrame.getCurrentSessionIconIndicator()
+                        normalImg: "icons/switchframe/session.png"
+                        pressImg: "icons/switchframe/session_focus.png"
                         onClicked: {
                             root.state = "stateSession"
                             sessionFrame.focus = true
@@ -286,15 +287,13 @@ Rectangle {
 
                     ImgButton {
                         id: userButton
-                        width: m_powerButtonSize
-                        height: m_powerButtonSize
+                        width: buttonSize
+                        height: buttonSize
                         visible: userFrame.isMultipleUsers()
 
-                        normalImg: "icons/switchframe/userswitch_normal.png"
-                        hoverImg: "icons/switchframe/userswitch_hover.png"
-                        pressImg: "icons/switchframe/userswitch_press.png"
+                        normalImg: "icons/switchframe/user.png"
+                        pressImg: "icons/switchframe/user_focus.png"
                         onClicked: {
-                            console.log("Switch User...")
                             root.state = "stateUser"
                             userFrame.focus = true
                         }
@@ -312,13 +311,13 @@ Rectangle {
 
                     ImgButton {
                         id: shutdownButton
-                        width: m_powerButtonSize
-                        height: m_powerButtonSize
+                        width: buttonSize
+                        height: buttonSize
                         visible: sddm.canPowerOff ? sddm.canPowerOff : "true"
 
                         normalImg: "icons/switchframe/powermenu.png"
+                        pressImg: "icons/switchframe/powermenu_focus.png"
                         onClicked: {
-                            console.log("Show shutdown menu")
                             root.state = "statePower"
                             powerFrame.focus = true
                         }
