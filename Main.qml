@@ -129,14 +129,13 @@ Rectangle {
                 anchors.fill: parent
                 enabled: root.state == "stateSession"
                 onSelected: {
-                    console.log("Selected session:", index)
                     root.state = "stateLogin"
                     loginFrame.sessionIndex = index
-                    loginFrame.input.forceActiveFocus()
+                    loginFrame.passwdInput.forceActiveFocus()
                 }
                 onNeedClose: {
                     root.state = "stateLogin"
-                    loginFrame.input.forceActiveFocus()
+                    loginFrame.passwdInput.forceActiveFocus()
                 }
             }
 
@@ -145,7 +144,6 @@ Rectangle {
                 anchors.fill: parent
                 enabled: root.state == "stateUser"
                 onSelected: {
-                    console.log("Select user:", userName)
                     root.state = "stateLogin"
                     loginFrame.userName = userName
                     loginFrame.input.forceActiveFocus()

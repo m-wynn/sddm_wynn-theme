@@ -8,6 +8,7 @@ Item {
     property int sessionIndex: find_list(sessionModel, config.default_session)
     property string userName: userModel.lastUser
     property alias input: userNameInput
+    property alias passwdInput: passwdInput
     property alias button: loginButton
     function find_list(haystack, needle) {
         var i;
@@ -270,7 +271,6 @@ Item {
             }
             onClicked: {
                 spinner.running = true
-                console.log(sessionIndex)
                 sddm.login(userNameText.text, passwdInput.text, sessionIndex)
             }
 
