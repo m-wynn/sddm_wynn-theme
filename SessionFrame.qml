@@ -56,7 +56,7 @@ Item {
     }
 
     Text {
-        id: aupTitle
+        id: sessionTitle
         anchors {
             top: parent.top
             topMargin: 50
@@ -72,11 +72,11 @@ Item {
     }
     ListView {
         id: sessionList
-        anchors.centerIn: parent
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: sessionTitle.bottom
         width: parent.width / 3
         clip: true
-        height: parent.height - 80
-        topMargin: 75
+        height: parent.height - 100
         model: sessionModel
         currentIndex: sessionModel.lastIndex
         orientation: ListView.Vertical
