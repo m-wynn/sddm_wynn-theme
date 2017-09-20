@@ -93,6 +93,7 @@ Rectangle {
         Image {
             id: mainFrameBackground
             anchors.fill: parent
+            fillMode: Image.PreserveAspectCrop
             source: "background.png"
         }
 
