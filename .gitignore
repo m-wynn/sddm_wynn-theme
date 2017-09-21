@@ -39,5 +39,6 @@ Makefile*
 # QtCtreator CMake
 CMakeLists.txt.user*
 
-
 *.qmlc*
+
+theme.conf.user

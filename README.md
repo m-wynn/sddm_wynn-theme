@@ -6,22 +6,22 @@ the theme.conf file.
 
 Features:
 - [x] Select user via user picker
-- [x] Select user via typing in username (configuration option)
-- [x] Display organization logo instead of user icon (configuration option)
+- [x] Select user via typing in username (optional)
+- [x] Display organization logo instead of user icon (optional)
 - [x] Select background image (configuration option)
 - [x] Customizable color scheme (configuration option)
 - [x] Set default session (configuration option)
 - [x] User selects current session via menu
-- [x] Select user's session via request to your API (configuration option)
-- [x] Display a usage message to the user
-- [ ] Pretty icons
-- [ ] Better menus for choosing user and session
+- [x] Select user's session via request to your API (optional)
+- [x] Display a configurable usage message to the user (optional)
 
-## Screenshot (slightly out of date)
+## Screenshots (some functionality not shown)
 
 ![Screenshot](screenshot.png)
 
 ## Configuration file values
+
+You can create a `theme.conf.user` file which will override the defaults.
 
 * `default_background`: Path to background image
 * `default_session`: Session name to default to.  This is the `sessionname` in
@@ -30,12 +30,16 @@ Features:
 * `accent1`: The color of the top bar
 * `accent2`: The color of other items, like the "LOG IN" button
 * `accent2_hover`: The color that will be applied on hover to accent2 items
-* `logo`: Path to the image that will be placed in the spot usually filled by a
-  face icon
+* `logo` (optional): Path to the image that will be placed in the spot usually
+  filled by a face icon
 * `user_name`: `fill` to have the user fill in their own username, or `select`
   if you would like to provide a menu of users to choose from
-* `session_api`: A url which will return the user's preferred desktop
-  environment (yes, this was made with a very specific use-case in mind)
+* `session_api` (optional): A url which will return the user's preferred
+  desktop environment (yes, this was made with a very specific use-case in
+  mind)
+* `aup` (optional): A string that will contain an Acceptable Use Policy for
+  your users.  Escape characters such as '\n' will render properly (i.e. as
+  actual newlines).
 
 ### Session API
 
