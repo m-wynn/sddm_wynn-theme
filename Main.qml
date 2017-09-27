@@ -94,7 +94,7 @@ Rectangle {
             id: mainFrameBackground
             anchors.fill: parent
             fillMode: Image.PreserveAspectCrop
-            source: "background.png"
+            source: config.default_background
         }
 
         FastBlur {
