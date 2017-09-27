@@ -271,7 +271,11 @@ Item {
             }
             onClicked: {
                 spinner.running = true
-                sddm.login(userNameText.text, passwdInput.text, sessionIndex)
+                userName = userNameText.text
+                if (config.user_name == "fill") {
+                    userName = userNameInput.text
+                }
+                sddm.login(userName, passwdInput.text, sessionIndex)
             }
 
             onFocusChanged: {
