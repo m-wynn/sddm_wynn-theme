@@ -1,6 +1,6 @@
 import QtQuick 2.7
 import QtGraphicalEffects 1.0
-import QtQuick.Controls 2.1
+import QtQuick.Controls 2.0
 
 Item {
     id: frame
