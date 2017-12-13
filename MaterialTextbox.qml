@@ -6,6 +6,7 @@ import QtQuick.Controls 2.0
 TextField {
     clip: true
     color: config.accent2
+    font.family: config.font
     font.pointSize: 15
     selectByMouse: true
     selectionColor: "#a8d6ec"

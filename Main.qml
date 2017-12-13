@@ -190,6 +190,7 @@ Rectangle {
                     leftMargin: hMargin
                 }
 
+                font.family: config.font
                 font.pointSize: 16
 
                 color: config.accent1_text
@@ -212,6 +213,7 @@ Rectangle {
                         centerIn: parent
                     }
 
+                    font.family: config.font
                     font.pointSize: 16
 
                     color: config.accent1_text
@@ -374,6 +376,8 @@ Rectangle {
                 color: config.accent2
                 implicitHeight: 40
             }
+
+            font.family: config.font
 
             anchors {
                 bottom: parent.bottom

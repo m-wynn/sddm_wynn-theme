@@ -36,6 +36,7 @@ Item {
 
             Text {
                 text: qsTr("Shutdown")
+                font.family: config.font
                 font.pointSize: 15
                 color: "white"
                 horizontalAlignment: Text.AlignHCenter
@@ -66,6 +67,7 @@ Item {
 
             Text {
                 text: qsTr("Reboot")
+                font.family: config.font
                 font.pointSize: 15
                 color: "white"
                 horizontalAlignment: Text.AlignHCenter
@@ -96,6 +98,7 @@ Item {
 
             Text {
                 text: qsTr("Suspend")
+                font.family: config.font
                 font.pointSize: 15
                 color: "white"
                 horizontalAlignment: Text.AlignHCenter

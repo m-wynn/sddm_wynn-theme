@@ -54,6 +54,7 @@ Item {
             font {
                 pointSize: 18
                 bold: true
+                family: config.font
             }
             wrapMode: Text.Wrap
         }
@@ -67,6 +68,7 @@ Item {
             }
             text: config.aup
             color: "#000000"
+            font.family: config.font
             font.pointSize: 15
             wrapMode: Text.Wrap
         }

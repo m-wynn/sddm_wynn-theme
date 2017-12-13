@@ -67,6 +67,7 @@ Item {
         font {
             pointSize: 18
             bold: true
+            family: config.font
         }
         wrapMode: Text.Wrap
     }
@@ -100,6 +101,7 @@ Item {
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 text: name
+                font.family: config.font
                 font.pointSize: 15
                 color: "black"
                 wrapMode: Text.WordWrap

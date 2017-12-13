@@ -211,6 +211,7 @@ Item {
             }
             text: userName
             color: "#000000"
+            font.family: config.font
             font.pointSize: 15
         }
 
@@ -261,6 +262,8 @@ Item {
                 color: config.accent2
                 implicitHeight: 40
             }
+
+            font.family: config.font
 
             anchors {
                 top: passwdInput.bottom

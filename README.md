@@ -37,6 +37,7 @@ the defaults.
 * `default_session`: Session name to default to.  This is the `sessionname` in
   `/usr/share/xsessions/sessionname.desktop` (i.e. `cinnamon` or `cinnamon2d`,
   NOT `Cinnamon (Software Rendering)`)
+* `font`: The name of font family to use in labels and fields
 * `accent1`: The color of the top bar
 * `accent1_text`: The color of the top bar text and buttons
 * `accent2`: The color of other items, like the "LOG IN" button
