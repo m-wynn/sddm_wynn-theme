@@ -192,6 +192,8 @@ Rectangle {
 
                 font.pointSize: 16
 
+                color: config.accent1_text
+
                 text: sddm.hostName ? sddm.hostName : "hostname"
             }
 
@@ -211,6 +213,8 @@ Rectangle {
                     }
 
                     font.pointSize: 16
+
+                    color: config.accent1_text
 
                     function updateTime() {
                         text = new Date().toLocaleString(Qt.locale("en_US"), "hh:mm:ss")
@@ -267,6 +271,7 @@ Rectangle {
                         visible: sessionFrame.isMultipleSessions()
                         normalImg: "icons/switchframe/session.png"
                         pressImg: "icons/switchframe/session_focus.png"
+                        normalColor: config.accent1_text
                         onClicked: {
                             root.state = "stateSession"
                             sessionFrame.focus = true
@@ -292,6 +297,7 @@ Rectangle {
 
                         normalImg: "icons/switchframe/user.png"
                         pressImg: "icons/switchframe/user_focus.png"
+                        normalColor: config.accent1_text
                         onClicked: {
                             root.state = "stateUser"
                             userFrame.focus = true
@@ -316,6 +322,7 @@ Rectangle {
 
                         normalImg: "icons/switchframe/powermenu.png"
                         pressImg: "icons/switchframe/powermenu_focus.png"
+                        normalColor: config.accent1_text
                         onClicked: {
                             root.state = "statePower"
                             powerFrame.focus = true

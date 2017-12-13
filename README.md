@@ -38,6 +38,7 @@ the defaults.
   `/usr/share/xsessions/sessionname.desktop` (i.e. `cinnamon` or `cinnamon2d`,
   NOT `Cinnamon (Software Rendering)`)
 * `accent1`: The color of the top bar
+* `accent1_text`: The color of the top bar text and buttons
 * `accent2`: The color of other items, like the "LOG IN" button
 * `accent2_hover`: The color that will be applied on hover to accent2 items
 * `logo` (optional): Path to the image that will be placed in the spot usually
