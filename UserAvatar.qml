@@ -10,6 +10,7 @@ Canvas {
     onSourceChanged: delayPaintTimer.running = true
     onPaint: {
         var ctx = getContext("2d");
+        ctx.clearRect(0, 0, width, height);
         ctx.beginPath()
         ctx.ellipse(0, 0, width, height)
         ctx.clip()
