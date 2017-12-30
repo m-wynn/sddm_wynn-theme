@@ -44,6 +44,8 @@ the defaults.
 * `accent2_hover`: The color that will be applied on hover to accent2 items
 * `logo` (optional): Path to the image that will be placed in the spot usually
   filled by a face icon
+* `primary_screen_only`: Whether or not to display the panel on both screens,
+   or just the primary screen.
 * `user_name`: `fill` to have the user type in their own username, or `select`
   if you would like to provide a menu of users to choose from
 * `session_api` (optional): A url which will return the user's preferred

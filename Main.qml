@@ -108,6 +108,7 @@ Rectangle {
             id: centerArea
             width: parent.width
             height: 430
+            visible: config.primary_screen_only == "true" ? primaryScreen : true
             anchors {
                 centerIn: parent
             }
