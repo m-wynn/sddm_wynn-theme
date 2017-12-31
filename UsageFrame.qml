@@ -66,7 +66,7 @@ Item {
                 topMargin: 50
                 horizontalCenter: parent.horizontalCenter
             }
-            text: config.aup
+            text: config.aup != null ? config.aup : "No Acceptable Use Policy Defined"
             color: "#000000"
             font.family: config.font
             font.pointSize: 15

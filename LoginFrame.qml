@@ -19,7 +19,7 @@ Item {
                 return i
             }
         }
-        
+
         if (sessionModel.lastIndex >= 0 && sessionModel.lastIndex < sessionModel.rowCount() ) {
             return sessionModel.lastIndex
         }
@@ -189,20 +189,22 @@ Item {
 
             onFocusChanged: {
                 if (!focus) {
-                    var url = config.session_api.replace("%s", text)
-                    var xhr = new XMLHttpRequest();
-                    xhr.onreadystatechange = function() {
-                        if (xhr.readyState == 4 && xhr.status == 200) {
-                            var session = xhr.responseText
-                            if (session == 'N'){
-                                sessionIndex = find_list(sessionModel, config.default_session)
-                            } else if (session != null) {
-                                sessionIndex = find_list(sessionModel, session)
+                    if (config.session_api != null) {
+                        var url = config.session_api.replace("%s", text)
+                        var xhr = new XMLHttpRequest();
+                        xhr.onreadystatechange = function() {
+                            if (xhr.readyState == 4 && xhr.status == 200) {
+                                var session = xhr.responseText
+                                if (session == 'N'){
+                                    sessionIndex = find_list(sessionModel, config.default_session)
+                                } else if (session != null) {
+                                    sessionIndex = find_list(sessionModel, session)
+                                }
                             }
                         }
+                        xhr.open('GET', url, true)
+                        xhr.send('')
                     }
-                    xhr.open('GET', url, true)
-                    xhr.send('')
                 }
             }
         }
