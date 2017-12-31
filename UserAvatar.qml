@@ -1,45 +1,50 @@
 import QtQuick 2.2
+import QtGraphicalEffects 1.0
 
-Canvas {
+Item {
     id: avatar
     property string source: ""
-    property color m_strokeStyle: "#ffffff"
-
     signal clicked()
 
-    onSourceChanged: delayPaintTimer.running = true
-    onPaint: {
-        var ctx = getContext("2d");
-        ctx.clearRect(0, 0, width, height);
-        ctx.beginPath()
-        ctx.ellipse(0, 0, width, height)
-        ctx.clip()
-        ctx.drawImage(source, 0, 0, width, height)
-        ctx.strokeStyle = avatar.m_strokeStyle
-        ctx.lineWidth = 6
-        ctx.stroke()
+    Image {
+        id: avatarImg
+        source: parent.source
+        width: parent.width
+        height: parent.height
+        fillMode: Image.PreserveAspectCrop
+        layer.enabled: true
+        layer.effect: OpacityMask {
+            maskSource: avatarMask
+        }
+    }
+
+    Rectangle {
+        id: avatarMask
+        width: parent.width
+        height: parent.height
+        radius: parent.width / 2
+        visible: false
+    }
+
+    Rectangle {
+        id: avatarBorder
+        width: parent.width
+        height: parent.height
+        radius: parent.width / 2
+        color: "#00000000"
+        border.width: 4
+        border.color: "#ffffffff"
     }
 
     MouseArea {
         anchors.fill: parent
         hoverEnabled: true
         onEntered: {
-            m_strokeStyle = "#77ffffff"
-            avatar.requestPaint()
+            avatarBorder.border.color = "#77ffffff"
         }
         onExited: {
-            m_strokeStyle = "#ffffffff"
-            avatar.requestPaint()
+            avatarBorder.border.color = "#ffffffff"
         }
         onClicked: avatar.clicked()
-    }
-
-    // Fixme: paint() not affect event if source is not empty in initialization
-    Timer {
-        id: delayPaintTimer
-        repeat: false
-        interval: 150
-        onTriggered: avatar.requestPaint()
-        running: true
     }
 }
