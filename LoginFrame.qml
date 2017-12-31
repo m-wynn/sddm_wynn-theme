@@ -19,7 +19,13 @@ Item {
                 return i
             }
         }
-        return 0
+        
+        if (sessionModel.lastIndex >= 0 && sessionModel.lastIndex < sessionModel.rowCount() ) {
+            return sessionModel.lastIndex
+        }
+        else {
+            return 0
+        }
     }
 
     Connections {
