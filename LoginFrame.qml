@@ -291,6 +291,15 @@ Item {
                 sddm.login(userName, passwdInput.text, sessionIndex)
             }
 
+            Keys.onPressed: if (event.key === Qt.Key_Return) {
+                spinner.running = true
+                userName = userNameText.text
+                if (config.user_name == "fill") {
+                    userName = userNameInput.text
+                }
+                sddm.login(userName, passwdInput.text, sessionIndex)
+            }
+
             onFocusChanged: {
                 // Changing the radius here may make sddm 0.15 segfault
                 if (focus) {
