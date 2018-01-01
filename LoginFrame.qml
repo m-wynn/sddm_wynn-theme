@@ -100,14 +100,14 @@ Item {
         states: [
             State {
                 name: "fill"
-                PropertyChanges { target: userNameText; opacity: 0}
-                PropertyChanges { target: userNameInput; opacity: 1}
+                PropertyChanges { target: userNameText; visible: false}
+                PropertyChanges { target: userNameInput; visible: true}
                 PropertyChanges { target: userIconRec; source: config.logo }
             },
             State {
                 name: "select"
-                PropertyChanges { target: userNameText; opacity: 1}
-                PropertyChanges { target: userNameInput; opacity: 0}
+                PropertyChanges { target: userNameText; visible: true}
+                PropertyChanges { target: userNameInput; visible: false}
                 PropertyChanges { target: userIconRec; source: userFrame.currentIconPath }
             }
         ]
@@ -173,6 +173,7 @@ Item {
             }
             width: parent.width
             placeholderText: qsTr("Username")
+            focus: config.user_name == "fill"
 
             KeyNavigation.backtab: {
                 if (sessionButton.visible) {
@@ -230,6 +231,7 @@ Item {
                 topMargin: 10
                 horizontalCenter: parent.horizontalCenter
             }
+            focus: config.user_name == "select"
             width: parent.width
             placeholderText: qsTr("Password")
             echoMode: TextInput.Password
