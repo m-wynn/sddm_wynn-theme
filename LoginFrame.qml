@@ -123,16 +123,22 @@ Item {
             }
             width: 150
             height: 150
-            contentItem: Rectangle {
+            contentItem: Item {
                 id: spinning_item
                 implicitWidth: spinner.width
                 implicitHeight: spinner.height
-                radius: width*0.5
-                gradient: Gradient {
-                    GradientStop { position: 0.0; color: "#00ffffff" }
-                    GradientStop { position: 0.3; color: "#00ffffff" }
-                    GradientStop { position: 0.4; color:  config.accent2 }
-                    GradientStop { position: 1.0; color: config.accent2 }
+                ConicalGradient {
+                    id: borderFill
+                    anchors.fill: parent
+                    property double start: 0.1
+                    property double end: 0.9
+                    gradient: Gradient {
+                        GradientStop { position: borderFill.start; color: "#00ffffff" }
+                        GradientStop { position: borderFill.start + 0.1; color: config.accent2 }
+                        GradientStop { position: borderFill.end - 0.1; color: config.accent2 }
+                        GradientStop { position: borderFill.end; color: "#00ffffff" }
+                    }
+                    visible: false
                 }
 
                 RotationAnimator {
@@ -142,6 +148,20 @@ Item {
                     to: 360
                     loops: Animation.Infinite
                     duration: 1250
+                }
+                Rectangle {
+                    id: mask
+                    radius: 150/2
+                    border.width: 5
+                    anchors.fill: parent
+                    color: 'transparent'
+                    visible: false
+                }
+                OpacityMask {
+                    id: opm
+                    anchors.fill: parent
+                    source: borderFill
+                    maskSource: mask
                 }
             }
         }
