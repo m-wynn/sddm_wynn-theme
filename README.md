@@ -42,6 +42,7 @@ the defaults.
 * `accent1_text`: The color of the top bar text and buttons
 * `accent2`: The color of other items, like the "LOG IN" button
 * `accent2_hover`: The color that will be applied on hover to accent2 items
+* `am_pm_clock`: Whether to use a 12-hour AM/PM clock or a 24-hour clock
 * `logo` (optional): Path to the image that will be placed in the spot usually
   filled by a face icon
 * `primary_screen_only`: Whether or not to display the panel on both screens,

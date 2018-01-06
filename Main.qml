@@ -223,8 +223,11 @@ Rectangle {
 
                     color: config.accent1_text
 
+                    property bool clock: config.am_pm_clock == "true"
+
                     function updateTime() {
-                        text = new Date().toLocaleString(Qt.locale("en_US"), "hh:mm:ss")
+                        text = new Date().toLocaleString(Qt.locale("en_US"),
+                            clock ? "h:mm:ss A" : "hh:mm:ss")
                     }
                 }
 
