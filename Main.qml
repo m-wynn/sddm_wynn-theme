@@ -285,6 +285,7 @@ Rectangle {
                         onClicked: {
                             root.state = "stateSession"
                             sessionFrame.focus = true
+                            sessionFrame.currentItem.forceActiveFocus()
                         }
                         onEnterPressed: sessionFrame.currentItem.forceActiveFocus()
 
@@ -311,6 +312,7 @@ Rectangle {
                         onClicked: {
                             root.state = "stateUser"
                             userFrame.focus = true
+                            userFrame.currentItem.forceActiveFocus()
                         }
                         onEnterPressed: userFrame.currentItem.forceActiveFocus()
                         KeyNavigation.backtab: shutdownButton
@@ -336,6 +338,7 @@ Rectangle {
                         onClicked: {
                             root.state = "statePower"
                             powerFrame.focus = true
+                            powerFrame.currentItem.forceActiveFocus()
                         }
                         onEnterPressed: powerFrame.shutdown.focus = true
                         KeyNavigation.backtab: loginFrame.button

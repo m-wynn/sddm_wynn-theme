@@ -73,25 +73,31 @@ Item {
 
             UserAvatar {
                 id: iconButton
-                anchors.top: parent.top
-                anchors.horizontalCenter: parent.horizontalCenter
                 width: 100
                 height: 100
                 source: icon
                 onClicked: item.select()
+                anchors {
+                    top: parent.top
+                    topMargin: 10
+                    horizontalCenter: parent.horizontalCenter
+                }
             }
 
             Text {
                 id: nameText
-                width: parent.width
-                anchors.bottom: parent.bottom
-                anchors.horizontalCenter: parent.horizontalCenter
+                width: parent.width - 10
                 horizontalAlignment: Text.AlignHCenter
                 text: name
                 font.family: config.font
                 font.pointSize: 15
                 color: "white"
-                wrapMode: Text.WordWrap
+                elide: Text.ElideRight
+                anchors {
+                    bottom: parent.bottom
+                    horizontalCenter: parent.horizontalCenter
+                    bottomMargin: 10
+                }
             }
 
             Keys.onLeftPressed: {

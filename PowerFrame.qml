@@ -8,6 +8,7 @@ Item {
     signal needSuspend()
 
     property alias shutdown: shutdownButton
+    property alias currentItem: shutdownButton
 
     Row {
         spacing: 70
