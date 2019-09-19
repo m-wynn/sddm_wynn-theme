@@ -253,6 +253,7 @@ Rectangle {
                 }
                 width: parent.width / 3
                 height: parent.height
+                visible: config.primary_screen_only == "true" ? primaryScreen : true
 
                 Row {
                     spacing: 20
