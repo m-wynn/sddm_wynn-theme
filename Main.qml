@@ -384,6 +384,7 @@ Rectangle {
 
         Button {
             id: aupButton
+            visible: config.primary_screen_only == "true" ? primaryScreen : true
             width: 200
             text: qsTr("Acceptable Use Policy")
             highlighted: true
@@ -420,6 +421,7 @@ Rectangle {
 
         DropShadow {
             id: aupButtonShadow
+            visible: config.primary_screen_only == "true" ? primaryScreen : true
             anchors.fill: aupButton
             horizontalOffset: 0
             verticalOffset: 1
