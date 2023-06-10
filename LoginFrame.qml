@@ -30,11 +30,11 @@ Item {
 
     Connections {
         target: sddm
-        onLoginSucceeded: {
+        function onLoginSucceeded() {
             spinner.running = false
             Qt.quit()
         }
-        onLoginFailed: {
+        function onLoginFailed() {
             loginButton.text = textConstants.loginFailed
             passwdInput.text = ""
             loginButtonBack.color = "#f44336"
